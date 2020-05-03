@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "db20a46d-9fc2-4a8c-916d-dba8cc67eac0",
+		"name": "TOLL_PARKING_MANUAL",
+		"description": "Toll Parking API Manual Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Available STD Parking Slots",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9549a2d8-055c-4089-9157-b877f05245b7",
+						"exec": [
+							"pm.environment.set(\"slotType\", \"STD\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "da22c35c-c3d5-43c2-aacc-80e9f3637cef",
+						"exec": [
+							"var dataJson=JSON.parse(responseBody);",
+							"",
+							"var slotId;",
+							"",
+							"try {",
+							"    slotId = dataJson[0].slotId",
+							"    pm.environment.set(\"slotId\", slotId);",
+							"}",
+							"catch (e) { ",
+							"    console.log(e)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/v1/shopping/parking-slots/{{slotType}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"v1",
+						"shopping",
+						"parking-slots",
+						"{{slotType}}"
+					]
+				},
+				"description": "Retrieve list of available STD parking slots"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Available EC_20KW Parking Slots",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e641159c-a31b-4e14-b162-5b2aedb3b894",
+						"exec": [
+							"pm.environment.set(\"slotType\", \"EC_20KW\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed7951ed-f432-4d46-bb3c-fe522e80ba96",
+						"exec": [
+							"var dataJson=JSON.parse(responseBody);",
+							"",
+							"var slotId;",
+							"",
+							"try {",
+							"    slotId = dataJson[0].slotId",
+							"    pm.environment.set(\"slotId\", slotId);",
+							"}",
+							"catch (e) { ",
+							"    console.log(e)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/v1/shopping/parking-slots/{{slotType}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"v1",
+						"shopping",
+						"parking-slots",
+						"{{slotType}}"
+					]
+				},
+				"description": "Retrieve list of available EC_20KW parking slots"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Available EC_50KW Parking Slots",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9b50cf97-73ed-427f-8b01-6a1af19d59e0",
+						"exec": [
+							"pm.environment.set(\"slotType\", \"EC_50KW\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8475b5f-19e8-41ad-adb0-42c16c4c2f1a",
+						"exec": [
+							"var dataJson=JSON.parse(responseBody);",
+							"",
+							"var slotId;",
+							"",
+							"try {",
+							"    slotId = dataJson[0].slotId",
+							"    pm.environment.set(\"slotId\", slotId);",
+							"}",
+							"catch (e) { ",
+							"    console.log(e)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/v1/shopping/parking-slots/{{slotType}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"v1",
+						"shopping",
+						"parking-slots",
+						"{{slotType}}"
+					]
+				},
+				"description": "Retrieve list of available EC_50KW parking slots"
+			},
+			"response": []
+		},
+		{
+			"name": "Parking slot check-in",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b0da7481-067a-4574-9a00-9469d423e35a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "46312493-f8c8-4eca-934f-0732f19b1028",
+						"exec": [
+							"var dataJson=JSON.parse(responseBody);",
+							"",
+							"var vehicleId;",
+							"",
+							"try {",
+							"vehicleId = dataJson.vehicleId;    ",
+							"pm.environment.set(\"vehicleId\", vehicleId);    ",
+							"}",
+							"catch (e) { ",
+							" console.log(e)",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/v1/check-in/parking-slot/{{slotId}}/{{slotType}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"v1",
+						"check-in",
+						"parking-slot",
+						"{{slotId}}",
+						"{{slotType}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Parking slot check-out",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/v1/check-out/parking-slot/{{vehicleId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"v1",
+						"check-out",
+						"parking-slot",
+						"{{vehicleId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "11ffb3c5-e157-46e7-9a57-f678d64eaded",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2a856543-e8be-42ba-a888-152a1f301337",
+				"type": "text/javascript",
+				"exec": [
+					"// This tests will be executed after each request",
+					"pm.test(\"Response is not empty\", function () { ",
+					"    pm.response.to.not.be.empty;",
+					"});",
+					"",
+					"// For now we only handle 200 and 204 status code",
+					"pm.test(\"Status code is OK\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200,204]);",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
