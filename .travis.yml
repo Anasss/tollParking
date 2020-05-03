@@ -3,5 +3,11 @@ dist: trusty
 jdk:
   - oraclejdk8
   - openjdk8
+env:
+  global:
+    - CODECOV_TOKEN=:278eb99e-bcba-482e-847c-43b629770ac2 
 before_install:
   - chmod +x mvnw
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  
