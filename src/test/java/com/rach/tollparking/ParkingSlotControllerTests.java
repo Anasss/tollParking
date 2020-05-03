@@ -42,6 +42,8 @@ public class ParkingSlotControllerTests {
 
   private static final String POST_CHECKOUT_PARKING_SLOT = "/v1/check-out/parking-slot/{vehicleId}";
 
+  private static final String PARKING_SLOT_PATH_AVAILABLE = "$[0].available";
+
   @Autowired MockMvc mockMvc;
 
   @Autowired ObjectMapper mapper;
@@ -112,9 +114,9 @@ public class ParkingSlotControllerTests {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(3)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].available").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].available").isBoolean())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].available").value(equalTo(true)))
+        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).exists())
+        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).isBoolean())
+        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).value(equalTo(true)))
         .andExpect(MockMvcResultMatchers.jsonPath("$[0].slotId").value(equalTo(1)))
         .andExpect(MockMvcResultMatchers.jsonPath("$[1].slotId").value(equalTo(2)))
         .andExpect(MockMvcResultMatchers.jsonPath("$[2].slotId").value(equalTo(3)))
