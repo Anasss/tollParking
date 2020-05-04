@@ -3,11 +3,10 @@
 [![Build Status](https://travis-ci.com/Anasss/tollParking.svg?token=9xpT8wH1WexqTxR7szGY&branch=master)](https://travis-ci.com/Anasss/tollParking)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6e184e95460e47fcb02e3f7fdf228b19)](https://www.codacy.com/manual/Anasss/tollParking?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Anasss/tollParking&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/Anasss/tollParking/branch/master/graph/badge.svg?token=80ND2HMA9T)](https://codecov.io/gh/Anasss/tollParking)
-[![Known Vulnerabilities](https://snyk.io/test/github/Anasss/tollParking/badge.svg)](https://snyk.io/test/github/Anasss/tollParking)
 
 Toll Parking is a simple [Spring Boot](https://spring.io/projects/spring-boot) REST API Application, It manages the toll parking of standard and electric cars.
 
-## Technical stack:
+## Tech stack:
 
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Jpa](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference)
@@ -16,6 +15,9 @@ Toll Parking is a simple [Spring Boot](https://spring.io/projects/spring-boot) R
 * [Jacoco](https://www.jacoco.org/jacoco/)
 * [Postman](https://www.postman.com/)
 * [Swagger2](https://swagger.io/)
+* [Travis CI](https://travis-ci.com/)
+* [Codacy](https://www.codacy.com/)
+* [Synk](https://snyk.io/)
 
 ## Prerequisistes:
 
@@ -56,14 +58,20 @@ mvn spring-boot:run
 
 A postman collection was attached to the repository under the postman folder. It contains the API entry-points and perform some basic tests on the flow.
 
-In order to import it, open Postman:
+In order to import it, open Postman and import Collection and Environement json files:
 
 ```
 File -> Import -> Drop the collection json file: TOLL_PARKING_MANUAL.json
+File -> Import -> Drop the Environement json file: TOLL_PARKING_ENVIRONEMENT.json
 
 ```
+You can now run nominal scenarios without editing any request with the predefined PM parameters (Check-in first parkingSlot found!)
 
-## Documentation:
+### Demo:
+
+![Toll Parking Demo](postman/tollParkingDemo.gif)
+
+## Documentation: :memo:
 
 ### Swagger:
 Swagger is used to describe and document Toll Parking REST API.
@@ -81,7 +89,7 @@ Cars of all types come in and out randomly, the API must :
 - Mark the parking slot as Free when the car leaves it
 - Bill the customer when the car leaves.
 
-#### API Entry-points:
+#### API Entry-points: :round_pushpin:
 
 <ul>
 <li><i>GET</i> Available parking slots: <i>/v1/shopping/parking-slots/{slotType}</i> Where slotType :</br>
@@ -95,4 +103,12 @@ Cars of all types come in and out randomly, the API must :
 <li><i>POST</i> Check-out a parking slot and issue the bill: <i>/v1/check-out/parking-slot/{vehicleId}</i> </li>
 </ul>
 
-**N.B:** This entry-points are already defined in the repository's postman JSON collection, see [postman section](README.md.#Postman-Collection)
+**N.B:** These entry-points are already defined in the repository's postman JSON collection, see [postman section](README.md.#Postman-Collection)
+
+#### Security & Quality: :lock:
+A sync scan has been performed to identify potential vulnerabilities in the code:
+https://snyk.io/test/github/Anasss/tollParking
+
+We should analyze them and correct the identified security issues!
+
+We should also consider fixing some quality issues reported by [Codacy](https://www.codacy.com/manual/Anasss/tollParking) and improve [code coverage](https://codecov.io/gh/Anasss/tollParking)!
