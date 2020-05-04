@@ -59,6 +59,7 @@ public class ParkingSlotService {
     parkingSlot.setBill(null);
     parkingSlot.setCheckinDate(null);
     parkingSlot.setVehicleId(null);
+    parkingSlot.setAvailable(true);
   }
 
   /**
