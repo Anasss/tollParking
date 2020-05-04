@@ -1,9 +1,12 @@
 package com.rach.tollparking.entity;
 
 public enum ParkingSlotType {
+
   STD("STD"),
   EC_20KW("EC_20KW"),
   EC_50KW("EC_50KW");
+
+  private String name;
 
   ParkingSlotType() {
   }
@@ -11,8 +14,6 @@ public enum ParkingSlotType {
   ParkingSlotType(String name) {
     this.name = name;
   }
-
-  private String name;
 
   public String getName() {
     return name;

@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -44,13 +43,9 @@ public class ParkingSlotControllerTests {
 
   private static final String PARKING_SLOT_PATH_AVAILABLE = "$[0].available";
 
-  @Autowired MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @Autowired ObjectMapper mapper;
-
-  @MockBean ParkingSlotDao parkingSlotDao;
-
-  @MockBean ParkingSlotService parkingSlotService;
+  @MockBean private ParkingSlotDao parkingSlotDao;
 
   @Test public void testGetAvailableSlotsByType() throws Exception {
     // Nominal cases
@@ -114,20 +109,20 @@ public class ParkingSlotControllerTests {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(3)))
-        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).exists())
-        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).isBoolean())
-        .andExpect(MockMvcResultMatchers.jsonPath(PARKING_SLOT_PATH_AVAILABLE).value(equalTo(true)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].slotId").value(equalTo(1)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[1].slotId").value(equalTo(2)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[2].slotId").value(equalTo(3)))
+        .andExpect(jsonPath(PARKING_SLOT_PATH_AVAILABLE).exists())
+        .andExpect(jsonPath(PARKING_SLOT_PATH_AVAILABLE).isBoolean())
+        .andExpect(jsonPath(PARKING_SLOT_PATH_AVAILABLE).value(equalTo(true)))
+        .andExpect(jsonPath("$[0].slotId").value(equalTo(1)))
+        .andExpect(jsonPath("$[1].slotId").value(equalTo(2)))
+        .andExpect(jsonPath("$[2].slotId").value(equalTo(3)))
 
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.name").value(equalTo(PARKING_NICE_ETOILE)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.pricingPolicy").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.pricingPolicy.id").value(equalTo(1)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.pricingPolicy.prices").isNotEmpty())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.pricingPolicy.formula").isNotEmpty())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].parking.pricingPolicy.formula").value(equalTo(FIXED_AMOUNT)));
+        .andExpect(jsonPath("$[0].parking").exists())
+        .andExpect(jsonPath("$[0].parking.name").value(equalTo(PARKING_NICE_ETOILE)))
+        .andExpect(jsonPath("$[0].parking.pricingPolicy").exists())
+        .andExpect(jsonPath("$[0].parking.pricingPolicy.id").value(equalTo(1)))
+        .andExpect(jsonPath("$[0].parking.pricingPolicy.prices").isNotEmpty())
+        .andExpect(jsonPath("$[0].parking.pricingPolicy.formula").isNotEmpty())
+        .andExpect(jsonPath("$[0].parking.pricingPolicy.formula").value(equalTo(FIXED_AMOUNT)));
   }
 
   private List<ParkingSlot> createParkingSlots(ParkingSlotType parkingSlotType) {
@@ -156,16 +151,15 @@ public class ParkingSlotControllerTests {
     ParkingSlot parkSlot = new ParkingSlot(slotId, checkinDateTime, true, parking, initialBill, parkingSlotType);
 
     Mockito.when(parkingSlotDao.findBySlotId(slotId)).thenReturn(parkSlot);
-    Mockito.when(parkingSlotService.checkin(parkSlot)).thenReturn(initialBill);
 
     mockMvc.perform(MockMvcRequestBuilders.post(POST_CHECKIN_PARKING_SLOT, slotId, parkingSlotType.getName())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.vehicleId").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.checkinDate").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(equalTo(0.0)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$.currency").value(equalTo("EUR")));
+        .andExpect(jsonPath("$").exists())
+        .andExpect(jsonPath("$.vehicleId").exists())
+        .andExpect(jsonPath("$.checkinDate").exists())
+        .andExpect(jsonPath("$.price").value(equalTo(0.0)))
+        .andExpect(jsonPath("$.currency").value(equalTo("EUR")));
   }
 
   public void testParkingSlotCheckout(UUID vehicleId) throws Exception {
@@ -181,11 +175,11 @@ public class ParkingSlotControllerTests {
     mockMvc.perform(
         MockMvcRequestBuilders.post(POST_CHECKOUT_PARKING_SLOT, vehicleId).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.vehicleId").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.checkinDate").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.checkoutDate").exists())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(equalTo(6.5)))
-        .andExpect(MockMvcResultMatchers.jsonPath("$.currency").value(equalTo("EUR")));
+        .andExpect(jsonPath("$").exists())
+        .andExpect(jsonPath("$.vehicleId").exists())
+        .andExpect(jsonPath("$.checkinDate").exists())
+        .andExpect(jsonPath("$.checkoutDate").exists())
+        .andExpect(jsonPath("$.price").value(equalTo(6.5)))
+        .andExpect(jsonPath("$.currency").value(equalTo("EUR")));
   }
 }
