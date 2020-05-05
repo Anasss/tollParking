@@ -129,9 +129,9 @@ public class ParkingSlotControllerTests {
     Parking parking = createParking();
 
     List<ParkingSlot> slots = new ArrayList<>();
-    slots.add(new ParkingSlot(1, null, true, parking, null, parkingSlotType));
-    slots.add(new ParkingSlot(2, null, true, parking, null, parkingSlotType));
-    slots.add(new ParkingSlot(3, null, true, parking, null, parkingSlotType));
+    slots.add(new ParkingSlot(1, null, null, true, parking, null, parkingSlotType));
+    slots.add(new ParkingSlot(2, null, null, true, parking, null, parkingSlotType));
+    slots.add(new ParkingSlot(3, null, null, true, parking, null, parkingSlotType));
     return slots;
   }
 
@@ -140,7 +140,7 @@ public class ParkingSlotControllerTests {
     prices.put(FIXED_AMOUNT, FIXED_AMOUNT_VALUE);
 
     PricingPolicy simplePolicy = new PricingPolicy(1, prices, FIXED_AMOUNT);
-    return new Parking(simplePolicy, PARKING_NICE_ETOILE);
+    return new Parking(1, simplePolicy, PARKING_NICE_ETOILE);
   }
 
   public void testParkingSlotCheckin(long slotId, ParkingSlotType parkingSlotType) throws Exception {
@@ -148,7 +148,8 @@ public class ParkingSlotControllerTests {
     Bill initialBill = new Bill(billUuid, checkinDateTime, null, 0.0f, "EUR");
 
     Parking parking = createParking();
-    ParkingSlot parkSlot = new ParkingSlot(slotId, checkinDateTime, true, parking, initialBill, parkingSlotType);
+    ParkingSlot parkSlot = new ParkingSlot(slotId, checkinDateTime, UUID.randomUUID(), true, parking, initialBill,
+        parkingSlotType);
 
     Mockito.when(parkingSlotDao.findBySlotId(slotId)).thenReturn(parkSlot);
 
@@ -168,7 +169,8 @@ public class ParkingSlotControllerTests {
     Bill finalBill = new Bill(billUuid, checkinDateTime, checkoutDateTime, 13.0f, "EUR");
 
     Parking parking = createParking();
-    ParkingSlot parkSlot = new ParkingSlot(1, checkinDateTime, true, parking, finalBill, ParkingSlotType.STD);
+    ParkingSlot parkSlot = new ParkingSlot(1, checkinDateTime, UUID.randomUUID(), true, parking, finalBill,
+        ParkingSlotType.STD);
 
     Mockito.when(parkingSlotDao.findByVehicleId(vehicleId)).thenReturn(parkSlot);
 

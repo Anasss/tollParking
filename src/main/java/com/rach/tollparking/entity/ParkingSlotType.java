@@ -1,23 +1,20 @@
 package com.rach.tollparking.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public enum ParkingSlotType {
 
   STD("STD"),
   EC_20KW("EC_20KW"),
   EC_50KW("EC_50KW");
 
+  @Getter
   private String name;
-
-  ParkingSlotType() {
-  }
-
-  ParkingSlotType(String name) {
-    this.name = name;
-  }
-
-  public String getName() {
-    return name;
-  }
 
   /**
    * Find ParkingSlotType from a given String value.

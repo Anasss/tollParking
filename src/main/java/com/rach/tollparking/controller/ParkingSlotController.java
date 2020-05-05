@@ -4,13 +4,18 @@ import com.rach.tollparking.dao.ParkingSlotDao;
 import com.rach.tollparking.entity.Bill;
 import com.rach.tollparking.entity.ParkingSlot;
 import com.rach.tollparking.entity.ParkingSlotType;
+import com.rach.tollparking.exception.ParkingSlotAvailabilityException;
+import com.rach.tollparking.exception.ParkingSlotCheckinException;
+import com.rach.tollparking.exception.ParkingSlotCheckoutException;
 import com.rach.tollparking.service.ParkingSlotService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.script.ScriptException;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,7 +59,8 @@ public class ParkingSlotController {
     ParkingSlotType parkingSlotType = ParkingSlotType.fromValue(slotType);
 
     if (parkingSlotType == null) {
-      return ResponseEntity.badRequest().build();
+      throw new ParkingSlotAvailabilityException(
+          String.format("Invalid sloType %s. Possible values are: STD, EC_50KW or EC_20KW", slotType));
     }
 
     List<ParkingSlot> slots = parkingSlotDao.findBySlotTypeAndAndIsAvailableIsTrueOrderBySlotId(parkingSlotType);
@@ -85,7 +91,8 @@ public class ParkingSlotController {
     ParkingSlot parkingSlot = parkingSlotDao.findBySlotId(slotId);
 
     if (!parkingSlotService.isAvailable(parkingSlot)) {
-      return ResponseEntity.badRequest().build();
+      throw new ParkingSlotCheckinException(
+          String.format("Parking slot with id %s, was not found or is unavailable", slotId));
     }
 
     Bill bill = parkingSlotService.checkin(parkingSlot);
@@ -113,7 +120,7 @@ public class ParkingSlotController {
     ParkingSlot parkingSlot = parkingSlotDao.findByVehicleId(vehicleId);
 
     if (parkingSlot == null) {
-      return ResponseEntity.badRequest().build();
+      throw new ParkingSlotCheckoutException(String.format("Couldn't found vehicle with ID %s", vehicleId));
     }
 
     Bill bill = parkingSlotService.checkout(parkingSlot);
