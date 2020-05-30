@@ -5,6 +5,7 @@ import com.rach.tollparking.entity.ParkingSlotType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,9 @@ import java.util.UUID;
  *
  * @author Anass RACH
  */
-@Repository public interface ParkingSlotDao extends JpaRepository<ParkingSlot, Long> {
+@Repository
+@Transactional
+public interface ParkingSlotDao extends JpaRepository<ParkingSlot, Long> {
 
   /**
    * Find ParkingSlot by slotId

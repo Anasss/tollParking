@@ -8,14 +8,21 @@ import com.rach.tollparking.exception.ParkingSlotAvailabilityException;
 import com.rach.tollparking.exception.ParkingSlotCheckinException;
 import com.rach.tollparking.exception.ParkingSlotCheckoutException;
 import com.rach.tollparking.service.ParkingSlotService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.script.ScriptException;
 import java.util.List;
 import java.util.UUID;
 

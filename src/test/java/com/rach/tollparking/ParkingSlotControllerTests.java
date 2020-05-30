@@ -1,10 +1,12 @@
 package com.rach.tollparking;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rach.tollparking.controller.ParkingSlotController;
 import com.rach.tollparking.dao.ParkingSlotDao;
-import com.rach.tollparking.entity.*;
-import com.rach.tollparking.service.ParkingSlotService;
+import com.rach.tollparking.entity.Bill;
+import com.rach.tollparking.entity.Parking;
+import com.rach.tollparking.entity.ParkingSlot;
+import com.rach.tollparking.entity.ParkingSlotType;
+import com.rach.tollparking.entity.PricingPolicy;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
