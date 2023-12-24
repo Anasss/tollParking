@@ -104,11 +104,3 @@ Cars of all types come in and out randomly, the API must :
 </ul>
 
 **N.B:** These entry-points are already defined in the repository's postman JSON collection, see [postman section](README.md.#Postman-Collection)
-
-#### Security & Quality: :lock:
-A sync scan has been performed to identify potential vulnerabilities in the code:
-https://snyk.io/test/github/Anasss/tollParking
-
-We should analyze them and fix the identified security issues!
-
-We should also consider fixing some quality issues reported by [Codacy](https://www.codacy.com/manual/Anasss/tollParking) and improve [code coverage](https://codecov.io/gh/Anasss/tollParking)!
